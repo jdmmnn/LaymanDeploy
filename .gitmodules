@@ -1,0 +1,9 @@
+[submodule "FrontEnd"]
+	path = FrontEnd
+	url = git@github.com:jdmmnn/LaymanDeployFE.git
+[submodule "BackEnd"]
+	path = BackEnd
+	url = git@github.com:jdmmnn/LaymanDeployBE.git
+[submodule "Setup"]
+	path = Setup
+	url = git@github.com:jdmmnn/LaymanSetup.git
