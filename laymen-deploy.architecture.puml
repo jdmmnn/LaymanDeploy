@@ -1,0 +1,26 @@
+@startuml
+
+actor User
+
+package "Automation Tool" {
+  component "Setup Program" as SP
+
+  package "Server" {
+    component "Kubernetes Cluster" as KC
+    component "Service Management" as SM
+  }
+}
+
+database "Plugin Repo" as PR
+
+User --> SP : Configure Setup Programm
+SP --> KC : Setup Server with Kubernetes
+KC --> SM : Runs
+
+User --> SM : Manage and monitor services
+SM --> KC : Deploy, update, and monitor services
+
+User --> PR : Provide plugin (Helm Chart abstraction)
+SM --> PR : Use plugin for service deployment
+
+@enduml

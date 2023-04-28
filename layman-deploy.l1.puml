@@ -1,0 +1,16 @@
+@startuml
+
+actor User
+
+package "Service Management" {
+  package "Backend" as Backend
+  package "Frontend" as Frontend
+}
+
+[Kubernetes Cluster]
+
+User --> Frontend : Interact with application
+Frontend --> Backend : Send and receive requests
+Backend --> [Kubernetes Cluster] : Manage cluster resources
+
+@enduml

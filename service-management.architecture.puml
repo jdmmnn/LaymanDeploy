@@ -1,0 +1,41 @@
+@startuml
+
+actor User
+
+package "Service Management" {
+
+  package "Backend" {
+    component "Backend Server" as BE
+    component "API" as API
+    component "Service Controller" as SC
+    component "Monitoring & Logging" as ML
+    component "Data Storage" as DS
+    component "Kubernetes Controller" as KC
+  }
+
+  package "Frontend" {
+    component "Frontend Application" as FE
+    component "User Interface" as UI
+    component "Service Management Dashboard" as SMD
+    component "Monitoring Dashboard" as MD
+  }
+
+}
+
+User --> UI : Interact with application
+UI --> FE : Request and receive data
+FE --> API : Send and receive requests
+API --> BE : Process requests and manage data
+BE --> SC : Manage and control services
+SC --> KC : Deploy, update, start, stop services
+BE --> ML : Monitor and log services
+SC --> DS : Read and write service data
+ML --> DS : Read and write monitoring data
+FE --> SMD : Display service management
+FE --> MD : Display monitoring
+KC --> DS : Backup and restore services
+
+' Connection from Kubernetes Controller to not explicitly defined Kubernetes Cluster
+KC --> [Kubernetes Cluster] : Manage cluster resources
+
+@enduml
