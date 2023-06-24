@@ -1,4 +1,4 @@
-# 
+# LaymanDeploy
 
 **About arc42**
 
@@ -34,21 +34,31 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
 
 ## Stakeholders
 
-| Role/Name       | Contact        | Expectations                                |
-| --------------- | -------------- | ------------------------------------------- |
-| *User*          | *\<Contact-1>* | *Easy to use*                               |
-|                 |                | *Transparent usage with minimal user input* |
-|                 |                | *No deep technical knowledge required*      |
-| *Administrator* | *\<Contact-2>* | *Fast to setup*                             |
-|                 |                | *Remote monitoring*                         |
-|                 |                | *Remote deployment*                         |
-|                 |                | *Easy backup and restore*                   |
+| Role/Name       | Contact         | Expectations                                |
+| --------------- | --------------- | ------------------------------------------- |
+| *User*          | *\<Contact-1>*  | *Easy to use*                               |
+|                 |                 | *Transparent usage with minimal user input* |
+|                 |                 | *No deep technical knowledge required*      |
+|                 |                 | *User Stories with bundled Services*        |
+| *Administrator* | *\<Contact-2>*  | *Fast to setup*                             |
+|                 |                 | *Remote monitoring*                         |
+|                 |                 | *Remote deployment*                         |
+|                 |                 | *Easy backup and restore*                   |
+|                 |                 | *Load ready to go configuration*            |
+| *Developer*     | *Jesko Dammann* | *Learning experience*                       |
+|                 |                 | *working MVP*                               |
 
 # Architecture Constraints
+
+- Light weight
+- Platform agnostic
+- Kubernetes
 
 # System Scope and Context
 
 ## Business Context
+
+![Alt text](image.png)
 
 **\<Diagram or Table>**
 

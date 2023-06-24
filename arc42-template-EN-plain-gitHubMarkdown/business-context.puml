@@ -1,0 +1,24 @@
+@startuml
+
+actor EndUser as "End User"
+artifact HomeComputer as "Home Computer" {
+    artifact SetupProgram as "Setup Program"
+}
+database PluginRepository as "Plugin Repository"
+artifact Device as "Device" {
+    artifact KubernetesCluster as "Kubernetes Cluster" {
+        artifact ManagementProgram as "Management Program"
+        artifact Services as "Services"
+
+    }
+}
+
+EndUser --> SetupProgram : Configures
+SetupProgram --> Device : Sets Up
+SetupProgram --> KubernetesCluster : Deploys Management Program
+EndUser --> ManagementProgram : Uses/Manages
+ManagementProgram --> PluginRepository : Fetches Plugins
+ManagementProgram --> Services : Orchestrates/Deploys/Administrates
+KubernetesCluster --> ManagementProgram : Hosts
+KubernetesCluster --> Services : Hosts
+@enduml
