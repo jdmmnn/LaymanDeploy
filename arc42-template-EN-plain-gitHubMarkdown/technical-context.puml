@@ -1,0 +1,32 @@
+@startuml
+actor User
+package "LaymanDeploy" {
+    [Web Interface]
+    [Backup/Restore Service]
+    [Monitoring Service]
+    [Deploy Service]
+}
+
+database Kubernetes
+database GitRepository
+database ExternalStorage
+
+component Service
+
+User --> [Web Interface]: Interact
+[Web Interface] --> [Backup/Restore Service]: Control
+[Web Interface] --> [Monitoring Service]: Control
+[Web Interface] --> [Deploy Service]: Control
+
+[Backup/Restore Service] --> Service: Collect data
+[Backup/Restore Service] --> ExternalStorage: Store data
+
+[Monitoring Service] --> Service: Monitor
+[Monitoring Service] --> [Web Interface]: Service information
+
+[Deploy Service] --> GitRepository: Get plugin definitions
+[Deploy Service] --> Service: Deploy services
+
+Service --> Kubernetes: Runs on Kubernetes
+
+@enduml

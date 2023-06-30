@@ -5,9 +5,10 @@ artifact HomeComputer as "Home Computer" {
     artifact SetupProgram as "Setup Program"
 }
 database PluginRepository as "Plugin Repository"
+database ExternalStorage as "External Storage"
 artifact Device as "Device" {
     artifact KubernetesCluster as "Kubernetes Cluster" {
-        artifact ManagementProgram as "Management Program"
+        artifact ManagementProgram as "LaymanDeploy"
         artifact Services as "Services"
 
     }
@@ -18,6 +19,7 @@ SetupProgram --> Device : Sets Up
 SetupProgram --> KubernetesCluster : Deploys Management Program
 EndUser --> ManagementProgram : Uses/Manages
 ManagementProgram --> PluginRepository : Fetches Plugins
+ManagementProgram --> ExternalStorage : Saves/Loads Data
 ManagementProgram --> Services : Orchestrates/Deploys/Administrates
 KubernetesCluster --> ManagementProgram : Hosts
 KubernetesCluster --> Services : Hosts
