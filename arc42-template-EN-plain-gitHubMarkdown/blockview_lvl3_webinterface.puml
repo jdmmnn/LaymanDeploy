@@ -1,0 +1,30 @@
+@startuml
+skinparam linetype ortho
+
+title Block View Level 3
+
+actor User
+
+package LaymanDeploy {
+    package WebInterface {
+        component DeployView
+        component BackupView
+        component MonitorView
+    }
+}
+
+
+User --> DeployView: Deploy/Configure Plugin
+User --> BackupView: Backup and Restore Plugins
+User --> MonitorView: Monitor Plugin Status
+
+DeployView --> deployModule: Deploy/Configure Plugin
+
+BackupView --> BackupModule: Backup Plugin Deployment
+BackupView --> BackupModule: Restore Plugin Deployment
+
+MonitorView --> MonitorModule: Get Plugin Status
+MonitorView --> MonitorModule: Get Plugin Network Logs
+
+
+@enduml

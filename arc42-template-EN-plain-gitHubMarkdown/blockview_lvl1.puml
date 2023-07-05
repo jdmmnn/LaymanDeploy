@@ -1,0 +1,18 @@
+@startuml
+title Block View Level 1
+
+actor User
+
+component LaymanDeploy
+
+component Kubernetes
+
+database PluginRepo
+database ExternalStorage
+
+User -> LaymanDeploy: interacts
+LaymanDeploy --> PluginRepo: Plugins
+LaymanDeploy --> ExternalStorage: Backup/Restore Storage
+LaymanDeploy -> Kubernetes: Deployments
+
+@enduml

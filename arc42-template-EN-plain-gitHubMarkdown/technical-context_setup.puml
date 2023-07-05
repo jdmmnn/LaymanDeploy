@@ -1,0 +1,18 @@
+@startuml
+
+actor User
+package LaymanSetup {
+    artifact SetupService
+    artifact Ansible
+}
+
+package Server {
+    artifact Kubernetes
+}
+
+User --> SetupService : Data Input
+SetupService --> Ansible : Configure Playbook
+Ansible --> Server: Deploy Kubernetes
+Ansible --> Kubernetes: Deploy LaymanDeploy
+
+@enduml

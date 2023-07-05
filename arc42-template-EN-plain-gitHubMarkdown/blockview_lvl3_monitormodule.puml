@@ -1,0 +1,22 @@
+@startuml
+skinparam linetype ortho
+
+title Block View Level 3
+
+
+package LaymanDeploy {
+    package MonitorModule {
+        component NetworkLogService
+        component StatusService
+    }
+}
+
+package Kubernetes
+
+MonitorView --> StatusService: Get Plugin Status
+MonitorView --> NetworkLogService: Get Plugin Network Logs
+StatusService ---> DeployModule: Get Plugin Status
+NetworkLogService ----> Kubernetes: Get Network Logs
+
+
+@enduml

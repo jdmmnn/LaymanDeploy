@@ -1,32 +1,28 @@
 @startuml
+
 actor User
 package "LaymanDeploy" {
-    [Web Interface]
-    [Backup/Restore Service]
-    [Monitoring Service]
-    [Deploy Service]
+    component "Web Interface"
+    component "Backend Service"
 }
 
-database Kubernetes
+component "Kubernetes" as Kubernetes {
+    artifact "Service" as Service
+}
+
 database GitRepository
 database ExternalStorage
 
-component Service
-
 User --> [Web Interface]: Interact
-[Web Interface] --> [Backup/Restore Service]: Control
-[Web Interface] --> [Monitoring Service]: Control
-[Web Interface] --> [Deploy Service]: Control
+[Web Interface] --> [Backend Service]: Control
 
-[Backup/Restore Service] --> Service: Collect data
-[Backup/Restore Service] --> ExternalStorage: Store data
+[Backend Service] --> Service: Collect data
+[Backend Service] --> ExternalStorage: Store data
 
-[Monitoring Service] --> Service: Monitor
-[Monitoring Service] --> [Web Interface]: Service information
+[Backend Service] --> Service: Monitor
+[Backend Service] --> [Web Interface]: Information
 
-[Deploy Service] --> GitRepository: Get plugin definitions
-[Deploy Service] --> Service: Deploy services
-
-Service --> Kubernetes: Runs on Kubernetes
+[Backend Service] --> GitRepository: Get plugin definitions
+[Backend Service] --> Service: Deploy services
 
 @enduml

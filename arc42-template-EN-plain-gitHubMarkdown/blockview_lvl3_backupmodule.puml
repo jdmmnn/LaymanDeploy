@@ -1,0 +1,30 @@
+@startuml
+skinparam linetype ortho
+
+title Block View Level 3
+
+
+package LaymanDeploy {
+    package BackupModule as "Backup/RestoreModule" {
+        component ExternalStorageAdapter
+        component BackupService
+        component RestoreService
+    }
+}
+
+package Kubernetes
+
+database ExternalStorage
+
+BackupView --> BackupService: Backup Plugin Deployment
+BackupView --> RestoreService: Restore Plugin Deployment
+BackupService ---> PluginAdapter: Backup Plugin Data
+BackupService ---> Kubernetes: Backup Container
+RestoreService ---> Kubernetes: Restore Container
+RestoreService ---> PluginAdapter: Restore Plugin Data
+BackupService --> ExternalStorageAdapter: Store Backup
+RestoreService --> ExternalStorageAdapter: Load Backup
+ExternalStorageAdapter --> ExternalStorage: Store/Load Data
+
+
+@enduml

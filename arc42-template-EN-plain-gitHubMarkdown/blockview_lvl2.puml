@@ -1,0 +1,34 @@
+@startuml
+title Block View Level 2
+
+actor User
+
+package LaymanDeploy {
+    artifact WebInterface
+    artifact DeployModule
+    artifact BackupModule as "Backup/RestoreModule"
+    artifact MonitorModule
+}
+
+package Kubernetes {
+    artifact Service
+}
+
+database PluginRepository
+database ExternalStorage
+
+User --> WebInterface: Interacts
+WebInterface --> DeployModule: Plugin Deployment
+DeployModule --> PluginRepository: Get Plugin Deployment
+DeployModule --> Kubernetes: Deploy Plugin as Service
+
+WebInterface --> BackupModule: Request Plugin Backup/Restore
+BackupModule -> Service: Backup/Restore Plugin
+BackupModule --> ExternalStorage: Store/Load Backup
+
+WebInterface --> MonitorModule: Request Plugin Status
+MonitorModule -> Service: Get Plugin Status
+MonitorModule -> Kubernetes: Get Network Logs
+
+
+@enduml

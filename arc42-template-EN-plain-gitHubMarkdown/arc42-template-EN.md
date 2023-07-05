@@ -62,31 +62,31 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
 
 ## Technical Context
 
-![technical context](images/technical-context.png)
+### LaymanSetup
 
-**Explanation of technical interfaces**
+![technical context LaymanSetup](../out/arc42-template-EN-plain-gitHubMarkdown/technical-context_setup/technical-context_setup.png)
 
-1. **User - Web Interface**: This is the main interaction point for the user with the system. The user uses the web interface to control the backup/restore service, monitoring service, and deploy service. This involves performing tasks like starting a backup, viewing system logs, or deploying a plugin as new service(s).
+**Mapping Input/Output to Channels**
 
-2. **Web Interface - Backup/Restore Service**: This interface allows the web interface to control the Backup/Restore Service. This involves initiating a backup or restore operation, setting backup schedules, and other related tasks.
+1. **User -> SetupService (Channel: Graphical User Interface)** 
+    - **Input**: User puts in necessary data for the deployment.
+    - **Output**: Responses and data from the graphical user interface shown to the user.
 
-3. **Web Interface - Monitoring Service**: Through this interface, the web interface controls the Monitoring Service. This involves starting or stopping monitoring of specific services, configuring monitoring parameters, and fetching monitoring data to display to the user.
+2. **SetupService -> Ansible (Channel: Filesystem)**
+    - **Input**: Configure the predefined playbook with inputs from the user.
+    - **Output**: Validation response from Ansible.
+  
+3. **Ansible -> Server (Channel: SSH)**
+    - **Input**: Execute the playbook on the server.
+    - **Output**: Responses from the server, indicating success or failure of the operations.
 
-4. **Web Interface - Deploy Service**: This interface enables the web interface to control the Deploy Service. This involves deploying new services, updating existing ones, or removing services.
+4. **Ansible -> Kubernetes (Channel: kubeadm)**
+    - **Input**: Deploy the LaymanDeploy Service to the Kubernetes Cluster.
+    - **Output**: Responses from the Kubernetes Cluster, indicating success or failure of the operations.
 
-5. **Backup/Restore Service - Service**: This interface allows the Backup/Restore Service to fetch the necessary information from the services running on the Kubernetes cluster. This involves reading the state of a service, fetching configuration data, backing up the container, the database schema or other service-specific data necessary for backup/restore operations.
+### LaymanDeploy
 
-6. **Backup/Restore Service - ExternalStorage**: This interface is used by the Backup/Restore Service to store the backup data onto an external storage. This involves writing backup data, reading restore data, or performing other storage-related operations.
-
-7. **Monitoring Service - Service**: Through this interface, the Monitoring Service monitors the services running on Kubernetes. This involves checking the service health, fetching service logs, monitoring network traffic, or other service-specific monitoring tasks.
-
-8. **Monitoring Service - Web Interface**: This interface allows the Monitoring Service to provide status updates and logging information to the Web Interface. This involves sending real-time updates of the service health, providing log data, or other monitoring-related information.
-
-9. **Deploy Service - GitRepository**: This interface is used by the Deploy Service to fetch the plugin definitions from a Git repository. This could involve reading the repository, fetching specific plugin definitions, or other repository-related tasks.
-
-10. **Deploy Service - Kubernetes**: This interface enables the Deploy Service to deploy the services onto the Kubernetes cluster. This involves  orchestrating services, so creating new deployments, updating existing ones, or removing services.
-
-11. **Service - Kubernetes**: This interface is used by the services running on Kubernetes. This could involve interacting with the Kubernetes API, running as a pod, or other Kubernetes-related tasks.
+![technical context LaymanDeploy](images/technical-context.png)
 
 **Mapping Input/Output to Channels**
 
@@ -94,46 +94,69 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
     - **Input**: User commands or requests from the web interface.
     - **Output**: Responses and data from the web interface shown to the user.
 
-2. **Web Interface -> Backup/Restore Service (Channel: Internal API Calls)**
-    - **Input**: Commands from the web interface to initiate backup or restore operations, set backup schedules, etc.
-    - **Output**: Responses from the backup/restore service, indicating success or failure of the operations, status updates, etc.
+2. **Web Interface -> Backend Service (Channel: Rest over Network)**
+    - **Input**: Requests from the web interface to fetch data, start/stop services, etc.
+    - **Output**: Responses from the backend service, indicating success or failure of the operations.
 
-3. **Web Interface -> Monitoring Service (Channel: Internal API Calls)**
-    - **Input**: Commands from the web interface to start or stop monitoring, configure parameters, fetch monitoring data, etc.
-    - **Output**: Monitoring data, status updates, and logs from the monitoring service shown on the web interface.
-
-4. **Web Interface -> Deploy Service (Channel: Internal API Calls)**
-    - **Input**: Commands from the web interface to deploy new services, update existing ones, or remove services.
-    - **Output**: Responses from the deploy service, indicating success or failure of the operations, status updates, etc.
-
-5. **Backup/Restore Service -> Services on Kubernetes (Channel: Kubernetes API Calls)**
-    - **Input**: Requests from the backup/restore service to read service state, fetch configuration data, etc.
+3. **Backend Service -> Services on Kubernetes (Channel: Kubernetes API Calls)**
+    - **Input**: Requests from the Services to read service state, fetch configuration data, etc.
     - **Output**: Required data for backup/restore operations from the services running on Kubernetes.
 
-6. **Backup/Restore Service -> External Storage (Channel: Storage API Calls)**
+4. **Backend Service -> External Storage (Channel: Storage API Calls)**
     - **Input**: Requests from the backup/restore service to write backup data, read restore data, etc.
     - **Output**: Responses from the external storage, indicating success or failure of the storage operations.
 
-7. **Monitoring Service -> Services on Kubernetes (Channel: Kubernetes API Calls)**
-    - **Input**: Requests from the monitoring service to fetch service logs, monitor network traffic, etc.
+5. **Backend Service -> Services on Kubernetes (Channel: Kubernetes API Calls)**
+    - **Input**: Requests from the Kubernetes Cluster to fetch service logs, monitor network traffic, etc.
     - **Output**: Service logs, network traffic data, and other monitoring-related data from the services running on Kubernetes.
 
-8. **Deploy Service -> Git Repository (Channel: Git Operations over Network)**
-    - **Input**: Requests from the deploy service to read the repository, fetch specific plugin definitions, etc.
+6. **Backend Service -> Git Repository (Channel: Git Operations over Network)**
+    - **Input**: Fetch requests from the backend service to fetch plugin definitions from the Git repository.
     - **Output**: Plugin definitions from the Git repository.
 
-9. **Deploy Service -> Kubernetes (Channel: Kubernetes API Calls)**
-    - **Input**: Requests from the deploy service to create new deployments, update existing ones, or remove services.
+7. **Backend Service -> Kubernetes (Channel: Kubernetes API Calls)**
+    - **Input**: Requests from the Backend service to create new deployments, update existing ones, or remove services.
     - **Output**: Responses from Kubernetes, indicating success or failure of the deployment operations.
 
-10. **Services -> Kubernetes (Channel: Kubernetes API Calls)**
+8.  **Services -> Kubernetes (Channel: Kubernetes API Calls)**
     - **Input**: Interactions of the services with the Kubernetes API, running as a pod, etc.
     - **Output**: Responses from Kubernetes, indicating the results of the operations.
 
-
 # Solution Strategy
 
+## Goals
+
+- Lightweight to run on edge devices
+- Easy to use
+- Stable and reliable
+- Extensible
+- Platform agnostic
+
+## Key Challenges
+
+- Validation of Plugin compatibility/orchestration
+- Validation of User Input
+- Minimizing Service redundancy
+
+## Architectural Principals
+
+- **KISS** (Keep it simple, stupid)
+- **DRY** (Don't repeat yourself)
+- Monolithic architecture
+
 # Building Block View
+
+## Level One
+
+![level 1](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl1/blockview_lvl1.png)
+
+## Level Two
+
+
+
+## Level Three
+
+![level 3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/blockview_lvl3.png)
 
 ## Whitebox Overall System
 
@@ -186,7 +209,7 @@ Important Interfaces
 
 *\<white box template>*
 
-…
+![level 2](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl2/blockview_lvl2.png)
 
 ### White Box *\<building block m>*
 

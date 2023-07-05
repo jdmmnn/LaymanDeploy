@@ -1,0 +1,67 @@
+@startuml
+skinparam linetype ortho
+
+title Block View Level 3
+
+actor User
+
+package LaymanDeploy {
+    package WebInterface {
+        component DeployView
+        component BackupView
+        component MonitorView
+    }
+    package DeployModule {
+        component PluginRepositoryAdapter
+        component Orchestrator
+        component PluginAdapter
+        component KubernetesAdapter
+    }
+    package BackupModule as "Backup/RestoreModule" {
+        component ExternalStorageAdapter
+        component BackupService
+        component RestoreService
+    }
+    package MonitorModule {
+        component NetworkLogService
+        component StatusService
+    }
+}
+
+package Kubernetes {
+    artifact Service
+}
+
+database PluginRepository
+database ExternalStorage
+
+User --> DeployView: Deploy/Configure Plugin
+User --> BackupView: Backup and Restore Plugins
+User --> MonitorView: Monitor Plugin Status
+
+DeployView --> Orchestrator: Deploy/Configure Plugin
+Orchestrator --> PluginRepositoryAdapter: Get Plugin
+PluginRepositoryAdapter --> PluginRepository: Get Plugin
+Orchestrator --> PluginAdapter: Create Plugin Adapter
+PluginAdapter --> Service: Interface provider
+Orchestrator --> KubernetesAdapter: Deploy Plugin
+KubernetesAdapter --> PluginAdapter: Get Config
+KubernetesAdapter ---> Kubernetes: Deploy Plugin
+
+BackupView --> BackupService: Backup Plugin Deployment
+BackupView --> RestoreService: Restore Plugin Deployment
+BackupService ---> PluginAdapter: Backup Plugin Data
+BackupService ---> Kubernetes: Backup Container
+RestoreService ---> Kubernetes: Restore Container
+RestoreService ---> PluginAdapter: Restore Plugin Data
+BackupService --> ExternalStorageAdapter: Store Backup
+RestoreService --> ExternalStorageAdapter: Load Backup
+ExternalStorageAdapter --> ExternalStorage: Store/Load Data
+
+MonitorView --> StatusService: Get Plugin Status
+MonitorView --> NetworkLogService: Get Plugin Network Logs
+StatusService ---> PluginAdapter: Get Plugin Status
+NetworkLogService ----> Kubernetes: Get Network Logs
+
+
+@enduml
