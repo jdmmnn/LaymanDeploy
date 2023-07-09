@@ -1,4 +1,6 @@
 @startuml
+skinparam linetype ortho
+
 title Block View Level 2
 
 actor User
@@ -19,7 +21,7 @@ database ExternalStorage
 
 User --> WebInterface: Interacts
 WebInterface --> DeployModule: Plugin Deployment
-DeployModule --> PluginRepository: Get Plugin Deployment
+DeployModule --> PluginRepository: Get Plugin
 DeployModule --> Kubernetes: Deploy Plugin as Service
 
 WebInterface --> BackupModule: Request Plugin Backup/Restore

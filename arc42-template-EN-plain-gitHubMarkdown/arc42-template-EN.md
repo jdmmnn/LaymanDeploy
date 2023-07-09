@@ -152,7 +152,7 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
 
 ## Level Two
 
-
+![level 2](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl2/blockview_lvl2.png)
 
 ## Level Three
 
@@ -171,7 +171,7 @@ Contained Building Blocks
 Important Interfaces  
 *\<Description of important interfaces>*
 
-### \<Name black box 1>
+### Webinterface
 
 *\<Purpose/Responsibility>*
 
@@ -185,17 +185,16 @@ Important Interfaces
 
 *\<(optional) Open Issues/Problems/Risks>*
 
-### \<Name black box 2>
+### Deploy Module
 
 *\<black box template>*
 
-### \<Name black box n>
+### Backup/Restore Module
 
 *\<black box template>*
 
-### \<Name interface 1>
+### Monitoring Module
 
-…
 
 ### \<Name interface m>
 
@@ -220,25 +219,35 @@ Important Interfaces
 ### White Box \<\_building block x.1\_\>
 
 *\<white box template>*
+![webinterface lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/webinterface/webinterface.png)
 
 ### White Box \<\_building block x.2\_\>
 
 *\<white box template>*
+![deploy lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/deploymodule/deploymodule.png)
 
 ### White Box \<\_building block y.1\_\>
 
 *\<white box template>*
+![backup lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/backupmodule/backupmodule.png)
+
+### White Box \<\_building block y.2\_\>
+
+*\<white box template>*
+![monitoring lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/monitormodule/monitormodule.png)
 
 # Runtime View
 
-## \<Runtime Scenario 1>
+## Deploy
+
+![deploy](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/deploy/deploy.png)
 
 -   *\<insert runtime diagram or textual description of the scenario>*
 
 -   *\<insert description of the notable aspects of the interactions
     between the building block instances depicted in this diagram.>*
 
-## \<Runtime Scenario 2>
+## Monitoring
 
 ## …
 

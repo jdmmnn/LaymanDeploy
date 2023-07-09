@@ -1,0 +1,54 @@
+@startuml
+title Deployment Process Success
+
+actor User as user
+participant "Web Interface" as web
+participant "Deployment Module" as deploy
+participant "Monitor Module" as monitor
+database "Plugin Repository" as repo
+participant "Kubernetes API" as api
+
+user -> web: Request deployment
+activate user
+activate web
+web -> deploy: Send deployment request
+activate deploy
+deploy -> repo: Get plugin
+activate repo
+repo --> deploy: Plugin retrieved
+deactivate repo
+deploy -> web: Deployment Wizard request
+deactivate deploy
+web -> user: Show Deployment Wizard
+user -> web: Input necessary parameters
+web -> deploy: Plugin Deployment
+activate deploy
+deploy -> deploy: Validate Deployment
+deploy -> deploy: Validate  intended orchestration
+deploy -> api: Deploy Services
+activate api
+alt Deployment successful
+    api --> deploy: Success
+    deploy -> monitor: Monitor deployment
+    activate monitor
+    monitor -> api: Get Service status
+    activate api
+    api --> monitor: Service status
+    deactivate api
+    monitor -> web: Service status
+    deactivate monitor
+    web -> user: Deployment successful
+    deactivate web
+else Deployment failed
+    api --> deploy: Failure
+    deactivate api
+    deploy -> web: Show error message
+    deactivate deploy
+    activate web
+    web -> user: Show error message
+    deactivate web
+end
+deactivate user
+
+
+@enduml

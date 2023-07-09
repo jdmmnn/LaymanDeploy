@@ -1,0 +1,50 @@
+@startuml
+title Backup of(plugin) pods
+
+actor User as user
+
+participant "Web Interface" as web
+participant "Backup Module" as backup
+participant "Deploy Module" as deploy
+participant "Kubernetes" as kubernetes
+participant "Shared Database" as db
+database "External Storage" as fs
+
+activate user
+user -> web: Request backup for plugin
+activate web
+web -> user: Request encryption password
+user -> web: Enter encryption password
+web -> backup: Request backup for plugin \n with salted/hashed password
+activate backup
+backup -> backup: Save salted/hashed password in vault
+backup -> deploy: Get plugin adapter interface
+activate deploy
+deploy --> backup: Plugin adapter interface
+deactivate deploy
+backup -> backup: Get plugin backup plan
+backup -> kubernetes: Backup plugin pod
+activate kubernetes
+kubernetes --> backup: Plugin pod backup complete
+deactivate kubernetes
+backup -> kubernetes: <optional> Backup plugin persistent volume
+activate kubernetes
+kubernetes --> backup: <optional> Plugin persistent volume backup complete
+deactivate kubernetes
+backup -> db: Export plugin database schema
+activate db
+db --> backup: Database export complete
+deactivate db
+backup -> backup: Encrypt plugin data with password
+backup -> fs: Store plugin data on external storage
+activate fs
+fs --> backup: Plugin data stored
+deactivate fs
+backup -> web: Backup complete
+deactivate backup
+web -> user: Backup complete
+deactivate web
+
+deactivate user
+
+@enduml
