@@ -1,0 +1,29 @@
+@startuml
+title Plugin Definition
+
+enum HelmDefaults {
+    database_config
+    ..
+    reverse_proxy
+    ..
+    dns_server
+    ..
+    ...
+}
+
+abstract class AbstractPluginDeployment {
+    helm_chart_variables 
+}
+
+HelmDefaults -> AbstractPluginDeployment::helm_chart_variables
+
+abstract class AbstractBackupPlugin {
+    what_to_backup(volumes, schema, ...)
+}
+
+class Plugin implements AbstractPluginDeployment, AbstractBackupPlugin {
+    heml_abstraction
+    backup_definition
+}
+
+@enduml

@@ -6,7 +6,7 @@ title Block View Level 3
 package LaymanDeploy {
 
     package DeployModule {
-        component PluginRepositoryAdapter
+        component Plugin
         component Orchestrator
         component PluginAdapter
         component KubernetesAdapter
@@ -19,12 +19,12 @@ package Kubernetes {
 }
 
 database PluginRepository
-database ExternalStorage
 
 
 WebInterface --> Orchestrator: Deploy/Configure Plugin
-Orchestrator --> PluginRepositoryAdapter: Get Plugin
-PluginRepositoryAdapter --> PluginRepository: Get Plugin
+Orchestrator -> Plugin: Get Plugin
+WebInterface ----> Plugin: Validate Plugin
+Plugin --> PluginRepository: Get Plugin
 Orchestrator --> PluginAdapter: Create Plugin Adapter
 PluginAdapter --> Service: Interface provider
 Orchestrator --> KubernetesAdapter: Deploy Plugin

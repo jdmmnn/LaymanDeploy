@@ -1,0 +1,43 @@
+@startuml
+title Backup of All Plugin Services
+
+actor User as user
+participant "Web Interface" as web
+participant "Backup Module" as backup
+participant "Deploy Module" as deploy
+participant "Database" as db
+participant "External Storage" as fs
+participant "Kubernetes" as kube
+
+
+activate user
+user -> web: Request backup of all plugin services
+activate web
+web -> user: Request encryption key
+user -> web: Enter encryption key
+web -> backup: Request backup of all plugin services \n with salted/hashed key
+activate backup
+backup -> deploy: Get Plugin Adapter for all Services
+activate deploy
+deploy --> backup: List of Plugin Adapters
+loop for each Plugin Adapter
+    backup -> kube: backup Plugin with Adapter
+    activate kube 
+    kube -> backup: Plugin Backup (tar.gz)
+    backup -> db: backup Plugin Schema
+    activate db
+    db -> backup: Plugin Schema Backup (sql)
+end
+backup -> backup: Encrypt Plugin Backups
+backup -> fs: Store Plugin Backups
+activate fs
+fs --> backup: Success
+backup -> web: Return Success
+deactivate backup
+web -> user: Return Success
+deactivate web
+deactivate user
+
+
+
+@enduml

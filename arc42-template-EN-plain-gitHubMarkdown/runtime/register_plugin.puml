@@ -1,0 +1,22 @@
+@startuml
+title Validate and register a new Plugin
+
+actor User as user
+participant "Web Interface" as web
+participant "Deploy Module" as deploy
+database "Plugin Repository" as repo
+
+activate user
+user -> web: upload plugin
+activate web
+web -> deploy: validate plugin
+activate deploy
+deploy -> web: plugin is valid
+deactivate deploy
+web -> repo: create Pull Request
+activate repo
+repo --> web: Pull Request created
+deactivate repo
+web -> user: Pull Request created
+
+@enduml

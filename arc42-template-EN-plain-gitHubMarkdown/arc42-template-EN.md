@@ -122,6 +122,18 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
     - **Input**: Interactions of the services with the Kubernetes API, running as a pod, etc.
     - **Output**: Responses from Kubernetes, indicating the results of the operations.
 
+### Plugin Definition
+
+![plugin definition class diagram](../out/arc42-template-EN-plain-gitHubMarkdown/plugin_definition/plugin_definition.png)
+
+```yaml
+name: "Plugin Name"
+description: "Plugin Description"
+version: "Plugin Version"
+author: "Plugin Author"
+
+```
+
 # Solution Strategy
 
 ## Goals
@@ -160,7 +172,7 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
 
 ## Whitebox Overall System
 
-***\<Overview Diagram>***
+<!-- ***\<Overview Diagram>***
 
 Motivation  
 *\<text explanation>*
@@ -169,89 +181,66 @@ Contained Building Blocks
 *\<Description of contained building block (black boxes)>*
 
 Important Interfaces  
-*\<Description of important interfaces>*
-
-### Webinterface
-
-*\<Purpose/Responsibility>*
-
-*\<Interface(s)>*
-
-*\<(Optional) Quality/Performance Characteristics>*
-
-*\<(Optional) Directory/File Location>*
-
-*\<(Optional) Fulfilled Requirements>*
-
-*\<(optional) Open Issues/Problems/Risks>*
-
-### Deploy Module
-
-*\<black box template>*
-
-### Backup/Restore Module
-
-*\<black box template>*
-
-### Monitoring Module
-
-
-### \<Name interface m>
+*\<Description of important interfaces>* -->
 
 ## Level 2
 
-### White Box *\<building block 1>*
-
-*\<white box template>*
-
-### White Box *\<building block 2>*
-
-*\<white box template>*
+### White Box
 
 ![level 2](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl2/blockview_lvl2.png)
 
-### White Box *\<building block m>*
-
-*\<white box template>*
-
 ## Level 3
 
-### White Box \<\_building block x.1\_\>
+### White Box: Web Interface
 
-*\<white box template>*
 ![webinterface lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/webinterface/webinterface.png)
 
-### White Box \<\_building block x.2\_\>
+### White Box: Deploy Module
 
-*\<white box template>*
 ![deploy lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/deploymodule/deploymodule.png)
 
-### White Box \<\_building block y.1\_\>
+### White Box: Backup Module
 
-*\<white box template>*
 ![backup lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/backupmodule/backupmodule.png)
 
-### White Box \<\_building block y.2\_\>
+### White Box: Monitoring Module
 
-*\<white box template>*
 ![monitoring lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/monitormodule/monitormodule.png)
+
+- [Prometheus](https://prometheus.io/) for Kubernetes monitoring
+- [Calico](https://www.tigera.io/tigera-products/calico/) for network monitoring
+- [Grafana](https://grafana.com/) for visualizing the monitoring data
 
 # Runtime View
 
-## Deploy
+## Register Plugin
+
+![register plugin](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/register_monitor/register_monitor.png)
+
+## Validate Plugin
+
+![validate plugin](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/validate_plugin/validate_plugin.png)
+
+## Deploy Plugin
 
 ![deploy](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/deploy/deploy.png)
 
--   *\<insert runtime diagram or textual description of the scenario>*
+<!-- -   *\<insert runtime diagram or textual description of the scenario>*
 
 -   *\<insert description of the notable aspects of the interactions
-    between the building block instances depicted in this diagram.>*
+    between the building block instances depicted in this diagram.>* -->
 
-## Monitoring
+## Backup Plugin
 
-## …
+![backup](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/backup/backup.png)
 
-## \<Runtime Scenario n>
+## Backup all Plugins
+
+![backup system](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/backup_system/backup_system.png)
+
+## Register Plugin Monitoring
+
+![register plugin monitoring](../out/arc42-template-EN-plain-gitHubMarkdown/runtime/register_monitor/register_monitor.png)
 
 # Deployment View
 

@@ -29,20 +29,12 @@ deploy -> api: Deploy Services
 activate api
 alt Deployment successful
     api --> deploy: Success
-    deploy -> monitor: Monitor deployment
+    deploy -> monitor: Register Plugin
     activate monitor
-    monitor -> api: Get Service status
-    activate api
-    api --> monitor: Service status
-    deactivate api
-    monitor -> web: Service status
-    deactivate monitor
-    web -> user: Deployment successful
-    deactivate web
 else Deployment failed
     api --> deploy: Failure
     deactivate api
-    deploy -> web: Show error message
+    deploy -> web: Error message
     deactivate deploy
     activate web
     web -> user: Show error message

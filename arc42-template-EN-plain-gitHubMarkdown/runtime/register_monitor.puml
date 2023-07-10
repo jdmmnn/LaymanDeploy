@@ -1,0 +1,48 @@
+@startuml
+title Register Plugin for Monitoring
+
+participant "Deploy Module" as deploy
+participant "Monitor Module" as monitor
+participant "Prometheus" as prom
+participant "Calico" as cal
+participant "Kubernetes" as kube
+participant "Grafana" as graf
+
+activate deploy
+deploy -> monitor: Register Plugin with Adapter
+activate monitor
+monitor -> prom: Register Plugin Pod/Service
+activate prom
+prom --> monitor: Success
+deactivate prom
+loop collect metrics
+    prom -> kube: Get metrics from Kubernetes
+    activate prom
+    activate kube
+    kube --> prom: Metrics
+    deactivate kube
+    deactivate prom
+end
+monitor -> cal: Activate network logging for Plugin Pod
+activate cal
+cal --> monitor: Success
+deactivate cal
+loop collect logs
+    cal -> kube: Get Network logs from Kubernetes
+    activate cal
+    activate kube
+    kube --> cal: Logs
+    deactivate kube
+    deactivate cal
+end
+monitor -> graf: Register Plugin Dashboard
+activate graf
+graf --> monitor: Success
+deactivate graf
+monitor -> deploy: Plugin Registered
+deactivate deploy
+deactivate monitor
+
+
+
+@enduml
