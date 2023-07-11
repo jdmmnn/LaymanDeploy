@@ -203,7 +203,7 @@ Important Interfaces
 
 ![backup lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/backupmodule/backupmodule.png)
 
-### White Box: Monitoring Module
+### White Box: Monitoring Module (optional)
 
 ![monitoring lvl3](../out/arc42-template-EN-plain-gitHubMarkdown/blockview_lvl3/monitormodule/monitormodule.png)
 
@@ -296,6 +296,10 @@ Mapping of Building Blocks to Infrastructure
 ## Quality Tree
 
 ## Quality Scenarios
+
+### Rollenspiele
+
+**Textuelle beschreibung eines Service deployments anhand von Bespiel service** -> results in prove of concept
 
 # Risks and Technical Debts
 
