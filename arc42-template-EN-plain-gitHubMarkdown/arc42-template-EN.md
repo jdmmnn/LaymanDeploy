@@ -124,6 +124,10 @@ LaymanDeploy is intended to be a easy to use, yet powerful tool to setup a Kuber
 
 ### Plugin Definition
 
+- abstraction of [helmfile](https://github.com/helmfile/helmfile)
+  - supports default values
+  - 
+
 ![plugin definition class diagram](../out/arc42-template-EN-plain-gitHubMarkdown/plugin_definition/plugin_definition.png)
 
 ```yaml
