@@ -3,20 +3,36 @@
 	- helm charts just have to be filled with values, which can easily be done through helmfile  
 	- helmfile itself wrappes helm charts perfectly and can be used as the base for the plugins system
 
-- i'm questioning the validity of my work and whether or not it is extensive enough to warrant a bachelors degree.  
+- i'm questioning the validity of my work and whether or not it is extensive enough to warrant a bachelors degree.
 	- currently the only thing im doing is learning kubernetes, helm and helmfile and wrapping those into a usable interface with a few quality of life improvements.  
 	- What should be the scope? is learning to use and showing this through the implementation of a rudimentary wrapper enough?  
-	- the deployment process (the heart of the application) itself is already practically done and logic wise, there is basically nothing for me to do.  
+	- the deployment process (the heart of the application) itself is already practically done (through the usage of helmfile) and logic wise, there is basically nothing for me to do, besides defining the plugins and writing a few of them.
 	- i would only write a basic backend that gets a few inputs through a frontend, fills the values.yaml file for each helmfile and use helmfiles capability to deploy them.  
 		- obviously the frontend needs to be developed, but that does not seem as too big a task.  
-	- the only step where i see a bit of potential to show software design capability is in the rudimentary backup and restore capability, but that is a small and also pretty easily implemented part.  
-	- besides that, i'm only writing a basic script, that configures a server, sets up kubernetes through k3s and deploys the service that only wrappes capability together.
+	- for the setup i'm only writing a basic (ansible playbook) script, that configures a server, sets up kubernetes through k3s and deploys the service that only wrappes capability together.
 
 - an almost equivalent alternative already exists: [stackspin](https://www.stackspin.net/)
+- similarily [soverign-workplace](https://software.opencode.de/project/351) a project by the BMI for basically the same.
 
 ## Unique Selling Point vs stackspin:
 - extensible Plugin System.
+- easier setup (through gui)
 - Everything else is already done in [stackspin](https://www.stackspin.net/)
+
+### missing
+- SSO
+- Monitoring
+
+### similarities
+- usage of kubernetes
+- dashboard
+- deployment of services (only predefined ones)
+  - other apps have to be manually installed but can be integrated into the system
+- backup and restore
+
+## Unique Selling Point vs sovereign-workplace:
+
+
 
 ## Overview of what I intend to develop
 
