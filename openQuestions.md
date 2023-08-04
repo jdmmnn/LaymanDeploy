@@ -30,8 +30,7 @@
   - other apps have to be manually installed but can be integrated into the system
 - backup and restore
 
-## Unique Selling Point vs sovereign-workplace:
-
+## Unique Selling Point vs [sovereign-workplace](https://software.opencode.de/project/351):
 
 
 ## Overview of what I intend to develop
