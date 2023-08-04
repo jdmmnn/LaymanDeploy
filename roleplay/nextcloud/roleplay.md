@@ -8,6 +8,7 @@ I want to roleplay the deployment of Nextcloud with my Deployment tool [LaymanDe
 
 - Running LaymanDeploy instance in kubernetes cluster.
 - Running Database instance in kubernetes cluster.
+  - preferably PostgreSQL, MySQL or MariaDB.
 - Running reverse Proxy for cluster.
 
 ## Deployment Process
